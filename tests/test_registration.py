@@ -38,9 +38,22 @@ def test_add_new_user(setup_database, connection):
 
 # Возможные варианты тестов:
 """
-Тест добавления пользователя с существующим логином.
-Тест успешной аутентификации пользователя.
-Тест аутентификации несуществующего пользователя.
+
 Тест аутентификации пользователя с неправильным паролем.
 Тест отображения списка пользователей.
 """
+
+def test_add_new_user_exists():
+    add_user('testuser', 'testuser@example.com', 'password123')
+    user = add_user('testuser', 'testuser@example.com', 'password123')
+    assert user == False
+    
+def test_auntificate_user():
+    add_user('testuser', 'testuser@example.com', 'password123')
+    user = authenticate_user("testuser", "password123")
+    assert user == True
+
+def test_auntificate_not_user():
+    add_user('testuser', 'testuser@example.com', 'password123')
+    user = authenticate_user("encxyrc", "password123")
+    assert user == False
